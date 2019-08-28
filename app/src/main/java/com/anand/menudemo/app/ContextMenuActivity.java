@@ -8,10 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.anand.menudemo.R;
 import com.anand.menudemo.adapter.QuickAdapter;
 import com.anand.menudemo.view.RecyclerViewWithContextMenu;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,12 @@ public class ContextMenuActivity extends BaseActivity {
                 }
             }
         });*/
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(ContextMenuActivity.this, "点击菜单了"+adapter.getItem(position), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -85,6 +93,22 @@ public class ContextMenuActivity extends BaseActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        if(item.getMenuInfo() instanceof RecyclerViewWithContextMenu.RecyclerViewContextMenuInfo){
+            RecyclerViewWithContextMenu.RecyclerViewContextMenuInfo contextMenuInfo = (RecyclerViewWithContextMenu.RecyclerViewContextMenuInfo) item.getMenuInfo();
+            if(contextMenuInfo != null && contextMenuInfo.getPostion() >= 0){
+                switch (item.getItemId()){
+                    case R.id.context_menu_add:
+                        Toast.makeText(this,mAdapter.getItem(contextMenuInfo.getPostion())+":添加菜单被点击" , Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.context_menu_del:
+                        Toast.makeText(this,mAdapter.getItem(contextMenuInfo.getPostion())+":删除菜单被点击" , Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.context_menu_save:
+                        Toast.makeText(this,mAdapter.getItem(contextMenuInfo.getPostion())+":保存菜单被点击" , Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+            }
+        }
         return super.onContextItemSelected(item);
     }
 
