@@ -35,6 +35,8 @@ public class ContextMenuActivity extends BaseActivity {
 
     private void initView() {
         recyclerView = findViewById(R.id.recyclerView);
+        //尺寸大小确定，可以设置该参数，避免重新计算大小
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         mAdapter = new QuickAdapter(R.layout.item_recyclerview,createDataList());
@@ -71,6 +73,7 @@ public class ContextMenuActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterForContextMenu(recyclerView);
     }
 
     public static void actionStart(Context context){
