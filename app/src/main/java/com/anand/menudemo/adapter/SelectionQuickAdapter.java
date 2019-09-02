@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.selection.SelectionTracker;
 
-import com.anand.menudemo.R;
 import com.anand.menudemo.bean.LongItemDetails;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

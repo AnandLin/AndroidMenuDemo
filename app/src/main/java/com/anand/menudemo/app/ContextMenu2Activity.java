@@ -70,8 +70,7 @@ public class ContextMenu2Activity extends AppCompatActivity {
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.context_menu,menu);
+                mode.getMenuInflater().inflate(R.menu.context_menu,menu);
                 return true;
             }
 

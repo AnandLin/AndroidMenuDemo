@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnContextMenu;
     private Button btnListViewContextMode;
     private Button btnRecycleViewContextMode;
+    private Button btnSingleView;
     private Button btnSubMenu;
 
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnContextMenu = findViewById(R.id.btn_ContextMenu);
         btnListViewContextMode = findViewById(R.id.btn_ListView_ContextMode);
         btnRecycleViewContextMode = findViewById(R.id.btn_RecycleView_ContextMode);
+        btnSingleView = findViewById(R.id.btn_single_view);
     }
 
     /**
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnContextMenu.setOnClickListener(this);
         btnListViewContextMode.setOnClickListener(this);
         btnRecycleViewContextMode.setOnClickListener(this);
+        btnSingleView.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_RecycleView_ContextMode:
                 ContextMenu3Activity.actionStart(MainActivity.this);
+                break;
+            case R.id.btn_single_view:
+                ContextMenu4Activity.actionStart(MainActivity.this);
                 break;
         }
     }
