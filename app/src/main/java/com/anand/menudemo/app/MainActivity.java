@@ -4,10 +4,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.anand.menudemo.R;
+import com.anand.menudemo.fragmet.BaseFragmet;
+import com.anand.menudemo.fragmet.OptionMenuFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private LinearLayout lllContianer;
+    private FrameLayout flContianer;
 
     private Button btnOptionMenu01;
     private Button btnOptionMenu02;
@@ -16,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnRecycleViewContextMode;
     private Button btnSingleView;
     private Button btnSubMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化视图
      */
     private void initView() {
+        lllContianer = findViewById(R.id.ll_contianer);
+        flContianer = findViewById(R.id.fragment_contianer);
+
         btnOptionMenu01 = findViewById(R.id.btn_OptionMenu01);
         btnOptionMenu02 = findViewById(R.id.btn_OptionMenu02);
         btnContextMenu = findViewById(R.id.btn_ContextMenu);
@@ -64,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 OptionMenuActivity.actionStart(MainActivity.this);
                 break;
             case R.id.btn_OptionMenu02:
-                OptionMenu2Activity.actionStart(MainActivity.this);
+//                OptionMenu2Activity.actionStart(MainActivity.this);
+                replaceFragment(OptionMenuFragment.newInstance());
                 break;
             case R.id.btn_ContextMenu:
                 ContextMenuActivity.actionStart(MainActivity.this);
@@ -79,5 +91,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ContextMenu4Activity.actionStart(MainActivity.this);
                 break;
         }
+    }
+
+    private void replaceFragment(BaseFragmet fragmet){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_contianer,fragmet)
+                .addToBackStack(null)
+                .commit();
     }
 }
