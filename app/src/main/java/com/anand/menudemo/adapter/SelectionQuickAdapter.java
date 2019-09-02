@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import androidx.recyclerview.selection.ItemDetailsLookup;
@@ -38,18 +39,6 @@ public class SelectionQuickAdapter extends BaseQuickAdapter<String, SelectionQui
         setHasStableIds(true);
     }
 
-    @Override
-    protected void convert(@NonNull SelectionQickViewHolder helper, String item) {
-        helper.tv.setText(item);
-        if(mSelectionTracker != null){
-            if(mSelectionTracker.isSelected(getParentPosition(item))){
-                helper.getConvertView().setBackgroundColor(Color.parseColor("#80deea"));
-            }else {
-                helper.getConvertView().setBackgroundColor(Color.WHITE);
-            }
-        }
-    }
-
     /**
      * 为了能够使用项目的位置作为其唯一标识符,需重写getItemId
      * @param position
@@ -58,6 +47,55 @@ public class SelectionQuickAdapter extends BaseQuickAdapter<String, SelectionQui
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    /**
+     * BaseRecyclerViewAdapterHelper分首次刷新与局部刷新
+     * 首次加载调用此接口刷新
+     * @param helper
+     * @param item
+     */
+    @Override
+    protected void convert(@NonNull SelectionQickViewHolder helper, String item) {
+        helper.tv.setText(item);
+        if(mSelectionTracker != null){
+            if(mSelectionTracker.isSelected(getItemId(helper.getLayoutPosition()))){
+                helper.getConvertView().setBackgroundColor(Color.parseColor("#80deea"));
+                if(helper.tv instanceof CheckedTextView){
+                    ((CheckedTextView)helper.tv).setChecked(true);
+                }
+            }else {
+                helper.getConvertView().setBackgroundColor(Color.WHITE);
+                if(helper.tv instanceof CheckedTextView){
+                    ((CheckedTextView)helper.tv).setChecked(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * BaseRecyclerViewAdapterHelper分首次刷新与局部刷新
+     * 已存在布局调用此接口刷新
+     * @param helper
+     * @param item
+     * @param payloads
+     */
+    @Override
+    protected void convertPayloads(@NonNull SelectionQickViewHolder helper, String item, @NonNull List<Object> payloads) {
+        //局部刷新
+        if(mSelectionTracker != null){
+            if(mSelectionTracker.isSelected(getItemId(helper.getLayoutPosition()))){
+                helper.getConvertView().setBackgroundColor(Color.parseColor("#80deea"));
+                if(helper.tv instanceof CheckedTextView){
+                    ((CheckedTextView)helper.tv).setChecked(true);
+                }
+            }else {
+                helper.getConvertView().setBackgroundColor(Color.WHITE);
+                if(helper.tv instanceof CheckedTextView){
+                    ((CheckedTextView)helper.tv).setChecked(false);
+                }
+            }
+        }
     }
 
     public void setSelectionTracker(SelectionTracker mSelectionTracker) {

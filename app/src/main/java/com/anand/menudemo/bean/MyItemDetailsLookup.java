@@ -8,7 +8,6 @@ import android.view.View;
 
 import androidx.recyclerview.selection.ItemDetailsLookup;
 
-import com.anand.menudemo.adapter.SelectTestAdataer;
 import com.anand.menudemo.adapter.SelectionQuickAdapter;
 
 /**
@@ -33,18 +32,11 @@ public class MyItemDetailsLookup extends ItemDetailsLookup<Long> {
     @Nullable
     @Override
     public ItemDetails<Long> getItemDetails(@NonNull MotionEvent motionEvent) {
-        /*View childViewUnder = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+        View childViewUnder = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
         if(childViewUnder != null){
             RecyclerView.ViewHolder childViewHolder = recyclerView.getChildViewHolder(childViewUnder);
             if(childViewHolder instanceof SelectionQuickAdapter.SelectionQickViewHolder){
                 return ((SelectionQuickAdapter.SelectionQickViewHolder)childViewHolder).getItemDetails();
-            }
-        }*/
-        View childViewUnder = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-        if(childViewUnder != null){
-            RecyclerView.ViewHolder childViewHolder = recyclerView.getChildViewHolder(childViewUnder);
-            if(childViewHolder instanceof SelectTestAdataer.SelectTestViewHolder){
-                return ((SelectTestAdataer.SelectTestViewHolder)childViewHolder).getItemDetails();
             }
         }
         return null;
