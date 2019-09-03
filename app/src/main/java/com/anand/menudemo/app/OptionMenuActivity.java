@@ -128,6 +128,7 @@ public class OptionMenuActivity extends BaseActivity {
         Log.i(TAG, "onOptionsItemSelected: ");
         switch (item.getItemId()){
             case R.id.menu_search:
+                //判断收藏菜单是否打开，是的话关闭收藏菜单的拓展
                 if(collectMenuItem != null && collectMenuItem.isActionViewExpanded()){
                    collectMenuItem.collapseActionView();
                 }
@@ -178,6 +179,12 @@ public class OptionMenuActivity extends BaseActivity {
             }
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        super.onOptionsMenuClosed(menu);
+        Log.i(TAG, "onOptionsMenuClosed: ");
     }
 
     /**

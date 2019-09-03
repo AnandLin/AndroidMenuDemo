@@ -83,6 +83,7 @@ public class OptionMenuFragment extends BaseFragmet {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.option_menu,menu);
         //搜索菜单
         searchMenuItem = menu.add(MAIN_GROUP,MENU_SEARCH,1,"搜索菜单");
         searchMenuItem.setIcon(android.R.drawable.ic_menu_search);
@@ -203,6 +204,7 @@ public class OptionMenuFragment extends BaseFragmet {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case MENU_SEARCH:
+                //判断收藏菜单是否打开，是的话关闭收藏菜单的拓展
                 if(collectMenuItem != null && collectMenuItem.isActionViewExpanded()){
                     collectMenuItem.collapseActionView();
                 }
@@ -267,5 +269,6 @@ public class OptionMenuFragment extends BaseFragmet {
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
+        Log.i(TAG, "onOptionsMenuClosed: ");
     }
 }
