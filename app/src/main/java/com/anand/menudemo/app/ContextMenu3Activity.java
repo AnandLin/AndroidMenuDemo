@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContextMenu3Activity extends AppCompatActivity {
+
+    private static final String TAG = "ContextMenu3Activity";
 
     private RecyclerView recyclerView;
     private SelectionQuickAdapter mAdapter;
@@ -54,6 +57,7 @@ public class ContextMenu3Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //返回时先监听是否选择状态中，如果选择状态先取消选择
         if (mSelectionTracker.hasSelection()){
             mSelectionTracker.clearSelection();
             return;
@@ -98,6 +102,8 @@ public class ContextMenu3Activity extends AppCompatActivity {
             @Override
             public void onItemStateChanged(@NonNull Object key, boolean selected) {
                 super.onItemStateChanged(key, selected);
+                Log.i(TAG, "onItemStateChanged: "+key+" to "+selected);
+                setSelectionTitle();
             }
 
             @Override
@@ -108,16 +114,8 @@ public class ContextMenu3Activity extends AppCompatActivity {
             @Override
             public void onSelectionChanged() {
                 super.onSelectionChanged();
-                int nItems = mSelectionTracker.getSelection().size();
-                String title;
-                if(nItems > 0){
-                    title = "%1$d items selected";
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ef6c00")));
-                }else {
-                    title = getResources().getString(R.string.app_name);
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
-                }
-                getSupportActionBar().setTitle(String.format(title,nItems));
+                Log.i(TAG, "onSelectionChanged: ");
+                setSelectionTitle();
             }
 
             @Override
@@ -125,6 +123,19 @@ public class ContextMenu3Activity extends AppCompatActivity {
                 super.onSelectionRestored();
             }
         });
+    }
+
+    private void setSelectionTitle(){
+        int nItems = mSelectionTracker.getSelection().size();
+        String title;
+        if(nItems > 0){
+            title = "%1$d items selected";
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ef6c00")));
+        }else {
+            title = getResources().getString(R.string.app_name);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+        }
+        getSupportActionBar().setTitle(String.format(title,nItems));
     }
 
     //生成测试数据List

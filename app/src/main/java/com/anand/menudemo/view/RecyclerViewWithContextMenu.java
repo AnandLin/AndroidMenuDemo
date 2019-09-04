@@ -47,6 +47,10 @@ public class RecyclerViewWithContextMenu extends RecyclerView {
         return super.showContextMenuForChild(originalView, x, y);
     }
 
+    /**
+     * 重写实现ContextMenuInfo返回，不然在onCreateContextMenu无法获取到menuInfo信息
+     * @return
+     */
     @Override
     protected ContextMenu.ContextMenuInfo getContextMenuInfo() {
         return mContextMenuInfo;

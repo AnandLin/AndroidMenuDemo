@@ -41,7 +41,7 @@ public class ContextMenuActivity extends BaseActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         mAdapter = new QuickAdapter(R.layout.item_recyclerview,createDataList());
         recyclerView.setAdapter(mAdapter);
-        //重载onCreateContextMenu方案一：
+        //重写onCreateContextMenu方案一：
         registerForContextMenu(recyclerView);
     }
 
@@ -49,7 +49,7 @@ public class ContextMenuActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        //重载onCreateContextMenu方案二：
+        //RecycleView对象对onCreateContextMenu实现方案二：
         /*recyclerView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
