@@ -13,7 +13,6 @@
         <activity android:name=".app.ContextMenu4Activity" />
         <activity android:name=".app.ContextMenu3Activity" />
         <activity android:name=".app.ContextMenu2Activity" />
-        <activity android:name=".app.DiyViewActivity" />
         <activity android:name=".app.SubMenuActivity" />
         <activity android:name=".app.ContextMenuActivity" />
         <activity android:name=".app.OptionMenu2Activity" />

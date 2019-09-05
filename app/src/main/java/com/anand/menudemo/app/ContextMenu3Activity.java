@@ -19,7 +19,10 @@ import androidx.recyclerview.selection.StorageStrategy;
 
 import com.anand.menudemo.R;
 import com.anand.menudemo.adapter.SelectionQuickAdapter;
+import com.anand.menudemo.adapter.SelectionStringAdapter;
 import com.anand.menudemo.bean.MyItemDetailsLookup;
+import com.anand.menudemo.bean.MyStringItemDetailsLookup;
+import com.anand.menudemo.bean.StringItemKeyProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class ContextMenu3Activity extends AppCompatActivity {
     private static final String TAG = "ContextMenu3Activity";
 
     private RecyclerView recyclerView;
+//    private SelectionStringAdapter mAdapter;
     private SelectionQuickAdapter mAdapter;
 
     private SelectionTracker mSelectionTracker;
@@ -76,6 +80,7 @@ public class ContextMenu3Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        mAdapter = new SelectionStringAdapter(android.R.layout.simple_list_item_multiple_choice,createDataList());
 //        mAdapter = new SelectionQuickAdapter(R.layout.item_recyclerview,createDataList());
         mAdapter = new SelectionQuickAdapter(android.R.layout.simple_list_item_multiple_choice,createDataList());
         recyclerView.setAdapter(mAdapter);
@@ -87,8 +92,11 @@ public class ContextMenu3Activity extends AppCompatActivity {
         mSelectionTracker = new SelectionTracker.Builder(
                 "mySelection",
                 recyclerView,
+//                new StringItemKeyProvider(1,createDataList()),      //密钥提供者
                 new StableIdKeyProvider(recyclerView),      //密钥提供者
+//                new MyStringItemDetailsLookup(recyclerView),
                 new MyItemDetailsLookup(recyclerView),
+//                StorageStrategy.createStringStorage())
                 StorageStrategy.createLongStorage())
                 .withSelectionPredicate(SelectionPredicates.<Long>createSelectAnything())
                 .build();
